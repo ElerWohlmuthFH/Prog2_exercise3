@@ -10,9 +10,9 @@ import java.util.List;
 
 public class NewsAPIExample {
 
-    public static final String APIKEY = "myKey";    //TODO add your api key
+    public static final String APIKEY = "812717347b1b42eb91d185b0f0f9285c";    //TODO add your api key
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         NewsApi newsApi = new NewsApiBuilder()
                 .setApiKey(APIKEY)
@@ -22,25 +22,29 @@ public class NewsAPIExample {
                 .setSourceCategory(Category.health) // example of how to use enums
                 .createNewsApi();
 
+        try {
             NewsResponse newsResponse = newsApi.getNews();
-            if(newsResponse != null){
+            if (newsResponse != null) {
                 List<Article> articles = newsResponse.getArticles();
-                articles.stream().forEach(article -> System.out.println(article.toString()));
+                articles.forEach(article -> System.out.println(article.toString()));
             }
 
-        newsApi = new NewsApiBuilder()
-                .setApiKey(APIKEY)
-                .setQ("corona")
-                .setEndPoint(Endpoint.EVERYTHING)
-                .setFrom("2020-03-20")
-                .setExcludeDomains("Lifehacker.com")
-                .createNewsApi();
+            newsApi = new NewsApiBuilder()
+                    .setApiKey(APIKEY)
+                    .setQ("corona")
+                    .setEndPoint(Endpoint.EVERYTHING)
+                    .setFrom("2020-03-20")
+                    .setExcludeDomains("Lifehacker.com")
+                    .createNewsApi();
 
             newsResponse = newsApi.getNews();
 
-        if(newsResponse != null){
-            List<Article> articles = newsResponse.getArticles();
-            articles.stream().forEach(article -> System.out.println(article.toString()));
+            if (newsResponse != null) {
+                List<Article> articles = newsResponse.getArticles();
+                articles.forEach(article -> System.out.println(article.toString()));
+            }
+        } catch (Exception e) {
+            System.out.println("oops, there is and exception!");
         }
 
     }
